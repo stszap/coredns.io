@@ -18,7 +18,7 @@ with CoreDNS code base update. It also could be achieved without modifying CoreD
 
 ## Build with compile-time configuration file
 
-The with compile-time configuration file,
+The compile-time configuration file,
 [`plugin.cfg`](https://github.com/coredns/coredns/blob/master/plugin.cfg) is all you need
 to update. It looks like this:
 
