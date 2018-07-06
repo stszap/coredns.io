@@ -7,8 +7,8 @@ Adding or removing is [easy](/2017/07/23/add-external-plugins/), but requires a 
 
 Thus most users use the *Corefile* to configure CoreDNS. When CoreDNS starts, and the `-conf` flag is
 not given, it will look for a file named `Corefile` in the current directory. That file consists
-of one or more Server Blocks. Each Server Block lists one or more Plugins. Those Plugins may be
-further configured with Directives.
+of one or more *Server Blocks*. Each Server Block lists one or more *Plugins*. Those Plugins may be
+further configured with *Directives*.
 
 The ordering of the Plugins in the Corefile *does not determine* the order of the plugin chain. The
 order in which the the plugins are executed is determined by the ordering in `plugin.cfg`.
@@ -18,14 +18,14 @@ Comments in a Corefile are started with a `#`. The rest of the line is then cons
 ## Environment Variables
 
 CoreDNS supports environment variables in its configuration.
-They can be used anywhere in the Corefile. The syntax is `{$ENV_VAR}` (a more Windows-like syntax
-`{%ENV_VAR%}` is also supported). CoreDNS substitutes the contents of the variable while parsing
-the Corefile.
+They can be used (almost) anywhere in the Corefile. The syntax is `{$ENV_VAR}` (a more Windows-like
+syntax `{%ENV_VAR%}` is also supported). CoreDNS substitutes the contents of the variable while
+parsing the Corefile.
 
 ## Importing Other Files
 
 See the [*import*](https://coredns.io/explugins/import) plugin. This plugin is a bit special in that
-it may be used anywhere in the Corefile.
+it may be used anywhere in the Corefile, it's also included by default.
 
 ### Reusable Snippits
 
@@ -87,17 +87,19 @@ same port is an error. This Corefile will generate an error on startup:
 }
 ~~~
 
-Changing the second port number to 1055 makes these Server Blocks two different Servers.
+Changing the second port number to 1055 (to pick a number)  makes these Server Blocks two different
+Servers.
 
 ### Specifying a Protocol
 
-Currently CoreDNS accepts three different protocols: plain DNS, DNS over TLS and DNS over gRPC. You
-can specify what a server should accept in the server configuration by prefixing a zone name with
-a scheme.
+Currently CoreDNS accepts four protocols: plain DNS, DNS over TLS, DNS over gRPC and DNS over
+HTTP/2. You can specify what a server should accept in the server configuration by prefixing a zone
+name with a scheme.
 
 * `dns://` for plain DNS (the default if no scheme is specified).
 * `tls://` for DNS over TLS.
 * `grpc://` for DNS over gRPC.
+* `https://` for DNS over HTTP/2 (DoH).
 
 ## Plugins
 

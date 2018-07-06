@@ -153,16 +153,6 @@ This leaves the domain routing to CoreDNS, which also handles special cases like
 two smaller Server Blocks instead of one has no negative effects except that your Corefile will be
 slightly longer. Things like snippets and the [*import*](/plugins/import) will help there.
 
-## Kubernetes
-
-### Federation
-
-### Autopath
-
-## Metrics
-
-## Caching
-
 ## Recursive Resolver
 
 CoreDNS does not have a native (i.e. written in Go) recursive resolver, but there is an (external)

@@ -1,7 +1,8 @@
 # Installation
 
 CoreDNS is written in Go, but unless you want to develop plugins or compile CoreDNS yourself you
-probably don't care. The following sections detail how you can get CoreDNS binaries or install from source.
+probably don't care. The following sections detail how you can get CoreDNS binaries or install from
+source.
 
 ## Binaries
 
@@ -14,21 +15,20 @@ Linux, we also provide cross compiled binaries for ARM, PowerPC and other archit
 We push every release as Docker images as well. You can find them in the [public Docker
 hub](https://hub.docker.com/r/coredns/coredns/) for the CoreDNS organization.
 
-Note that Docker images that are for architectures other than *AMD64* don't have any certificates
-installed. This means if you want to use CoreDNS on ARM and do things like DNS-over-TLS, you'll need
-to create your own Docker image.
+These images are using Docker's [scratch](https://hub.docker.com/_/scratch/) image, and contain
+nothing more than the coredns binary and some certificates.
 
 ## Source
 
 To compile CoreDNS, we assume you have a working Go setup. See various tutorials if you don't have
 that already configured. The Go version that comes with your OS is probably too old to compile
-CoreDNS as we require Go 1.9.x at the moment (Feb 2018).
+CoreDNS as we require at least Go 1.9.x at the moment (Feb 2018).
 
 With CoreDNS, we try to vendor all our dependencies, but because of [various
 reasons](https://github.com/coredns/coredns/issues/1523) (mostly making it
 possible for external plugins to compile), we can not vendor *all* our dependencies. Hence to compile
 CoreDNS, you still need to `go get` some packages. The `Makefile` we include handles all of these
-steps. So compiling CoreDNS boils down to (as of this writing the latest version is 1.0.5):
+steps. So compiling CoreDNS boils down to:
 
 ~~~ sh
 $ export GOPATH=${GOPATH-~/go}
@@ -42,11 +42,13 @@ $ make CHECKS= godeps all
 ~~~
 
 When all of that is done, you should end up with a `coredns` executable in the current directory:
+
 ~~~ sh
 $ ./coredns -version
 CoreDNS-1.0.5
 linux/amd64, go1.9.4,
 ~~~
+
 The `go1.9.4,` part usually shows a git commit, but as this is a source tar ball, we don't have
 this.
 
@@ -92,4 +94,4 @@ whoami.example.org.	0	IN	AAAA	::1
 _udp.whoami.example.org. 0	IN	SRV	0 0 39368 .
 ~~~
 
-The [next section](#configuration) will show how to enable more interesting plugins.
+The [next section](#configuration) will show how to enable other plugins.
